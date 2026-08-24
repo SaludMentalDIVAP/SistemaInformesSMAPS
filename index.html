@@ -1122,5 +1122,19 @@ async function generarArchivos(nombre_u, periodoLabel, analisis, datos_u, datos_
 }
 
 </script>
+<script>
+// Inicializar después de que todos los scripts y datos estén cargados
+(function() {
+  try {
+    DATOS     = _DATOS_INLINE;
+    JERARQUIA = _JERARQUIA_INLINE;
+    poblarSS();
+    setPer('hist');
+    console.log('✅ Sistema SM APS iniciado:', Object.keys(DATOS.ss).length, 'SS');
+  } catch(e) {
+    console.error('Error inicializando:', e);
+  }
+})();
+</script>
 </body>
 </html>

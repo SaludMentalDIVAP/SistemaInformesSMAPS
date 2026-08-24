@@ -769,7 +769,7 @@ async function generarWord(nombre_u, periodoLabel, analisis, datos_u, datos_pais
       const bold = isHeader || i===0;
       const color = isHeader ? 'FFFFFF' : (i===0?'1B2F6E':'000000');
       const widths = [2800,1000,1000,1100,700];
-      return `<w:tc><w:tcPr><w:tcW w:w="${widths[i]||1000}" w:type="dxa"/>${fill}</w:tcPr>${wPara(wRun(esc(String(c||'—')),{bold,color,size:9}),{after:'0'})}`;
+      return `<w:tc><w:tcPr><w:tcW w:w="${widths[i]||1000}" w:type="dxa"/>${fill}</w:tcPr>${wPara(wRun(esc(String(c||'—')),{bold,color,size:9}),{after:'0'})}</w:tc>`;
     }).join('')}</w:tr>`;
   }
 
@@ -837,13 +837,13 @@ async function generarWord(nombre_u, periodoLabel, analisis, datos_u, datos_pais
     wHead('2. Tabla Resumen de Indicadores'),
     wPara(wRun('Valores 2025, primer semestre 2026 y comparación con promedio nacional.',{size:10}),{after:'100'}),
     `<w:tbl><w:tblPr><w:tblW w:w="8600" w:type="dxa"/><w:tblBorders><w:top w:val="single" w:sz="4" w:color="D0D5E0"/><w:left w:val="single" w:sz="4" w:color="D0D5E0"/><w:bottom w:val="single" w:sz="4" w:color="D0D5E0"/><w:right w:val="single" w:sz="4" w:color="D0D5E0"/><w:insideH w:val="single" w:sz="4" w:color="D0D5E0"/><w:insideV w:val="single" w:sz="4" w:color="D0D5E0"/></w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="2800"/><w:gridCol w:w="1000"/><w:gridCol w:w="1000"/><w:gridCol w:w="1100"/><w:gridCol w:w="700"/></w:tblGrid>${tableRows.join('')}</w:tbl>`,
-    wPara(wRun('🟢 Sobre meta  🟡 Cerca de meta  🔴 Bajo meta',{size:8,color:'555555'}),{before:'80',after:'200'}),
+    wPara(wRun('(+) Sobre meta  (~) Cerca de meta  (-) Bajo meta',{size:8,color:'555555'}),{before:'80',after:'200'}),
 
     // Sección 3
     wHead('3. Análisis Epidemiológico'),
-    ...(alertas.length ? [wHead2('⚠️ Señales de Alerta','C0392B'), ...alertas.map(i=>wBullet(i.label+': '+fmtX(i.v,i.tipo), interp(i.ind,i.v,i.tipo),'C0392B'))] : []),
-    ...(positivos.length ? [wHead2('✅ Señales Positivas','166534'), ...positivos.map(i=>wBullet(i.label+': '+fmtX(i.v,i.tipo), interp(i.ind,i.v,i.tipo),'166534'))] : []),
-    ...(normales.length ? [wHead2('📊 En Rango Esperado','2563A8'), wPara(wRun('Sin desviaciones significativas: '+normales.map(n=>LABELS[n.ind]).join(', ')+'.',{size:10}),{after:'160'})] : []),
+    ...(alertas.length ? [wHead2('SENALES DE ALERTA','C0392B'), ...alertas.map(i=>wBullet(i.label+': '+fmtX(i.v,i.tipo), interp(i.ind,i.v,i.tipo),'C0392B'))] : []),
+    ...(positivos.length ? [wHead2('SENALES POSITIVAS','166534'), ...positivos.map(i=>wBullet(i.label+': '+fmtX(i.v,i.tipo), interp(i.ind,i.v,i.tipo),'166534'))] : []),
+    ...(normales.length ? [wHead2('EN RANGO ESPERADO','2563A8'), wPara(wRun('Sin desviaciones significativas: '+normales.map(n=>LABELS[n.ind]).join(', ')+'.',{size:10}),{after:'160'})] : []),
 
     // Sección 4
     wHead('4. Desafíos Prioritarios'),

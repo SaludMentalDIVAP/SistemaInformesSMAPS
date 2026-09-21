@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0056)https://saludmentaldivap.github.io/SistemaInformesSMAPS/ -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema SM APS — DIVAP · MINSAL Chile</title>
 <style>
@@ -157,19 +157,17 @@ select:disabled{background-color:var(--gris);color:#94a3b8;cursor:not-allowed}
         </div>
         <div>
           <label>Servicio de Salud</label>
-          <select id="sel-ss" onchange="onSS()" disabled>
-            <option value="">— Todos —</option>
-          </select>
+          <select id="sel-ss" onchange="onSS()"><option value="">— Todos (País) —</option><option value="Aconcagua">Aconcagua</option><option value="Antofagasta">Antofagasta</option><option value="Araucanía Norte">Araucanía Norte</option><option value="Araucanía Sur">Araucanía Sur</option><option value="Arauco">Arauco</option><option value="Arica y Parinacota">Arica y Parinacota</option><option value="Atacama">Atacama</option><option value="Aysén">Aysén</option><option value="Biobío">Biobío</option><option value="Chiloé">Chiloé</option><option value="Concepción">Concepción</option><option value="Coquimbo">Coquimbo</option><option value="Del Libertador B.O'Higgins">Del Libertador B.O'Higgins</option><option value="Del Maule">Del Maule</option><option value="Del Reloncaví">Del Reloncaví</option><option value="Los Rios">Los Rios</option><option value="Magallanes">Magallanes</option><option value="Metropolitano Central">Metropolitano Central</option><option value="Metropolitano Norte">Metropolitano Norte</option><option value="Metropolitano Occidente">Metropolitano Occidente</option><option value="Metropolitano Oriente">Metropolitano Oriente</option><option value="Metropolitano Sur">Metropolitano Sur</option><option value="Metropolitano Sur Oriente">Metropolitano Sur Oriente</option><option value="Osorno">Osorno</option><option value="Talcahuano">Talcahuano</option><option value="Tarapacá">Tarapacá</option><option value="Valparaíso San Antonio">Valparaíso San Antonio</option><option value="Viña del Mar Quillota">Viña del Mar Quillota</option><option value="Ñuble">Ñuble</option></select>
         </div>
         <div>
           <label>Comuna</label>
-          <select id="sel-com" onchange="onComuna()" disabled>
+          <select id="sel-com" onchange="onComuna()" disabled="">
             <option value="">— Todas —</option>
           </select>
         </div>
         <div>
           <label>Establecimiento</label>
-          <select id="sel-est" disabled>
+          <select id="sel-est" disabled="">
             <option value="">— Todos —</option>
           </select>
         </div>
@@ -194,10 +192,10 @@ select:disabled{background-color:var(--gris);color:#94a3b8;cursor:not-allowed}
         <button class="tab" onclick="setPer('2026')" id="tab-2026">📅 Año en curso 2026</button>
         <button class="tab" onclick="setPer('todo')" id="tab-todo">🗂 Serie completa 2014–2026</button>
       </div>
-      <div id="panel-hist" class="grid-2" style="display:none">
+      <div id="panel-hist" class="grid-2" style="display: grid;">
         <div><label>Año inicio</label>
           <select id="anio-ini">
-            <option value="2014" selected>2014</option>
+            <option value="2014" selected="">2014</option>
             <option value="2015">2015</option><option value="2016">2016</option>
             <option value="2017">2017</option><option value="2018">2018</option>
             <option value="2019">2019</option><option value="2020">2020</option>
@@ -207,7 +205,7 @@ select:disabled{background-color:var(--gris);color:#94a3b8;cursor:not-allowed}
         </div>
         <div><label>Año fin</label>
           <select id="anio-fin">
-            <option value="2025" selected>2025</option>
+            <option value="2025" selected="">2025</option>
             <option value="2024">2024</option><option value="2023">2023</option>
           </select>
         </div>
@@ -215,7 +213,7 @@ select:disabled{background-color:var(--gris);color:#94a3b8;cursor:not-allowed}
       <div id="panel-2026" class="grid-2" style="display:none">
         <div><label>Desde</label>
           <select id="mes-ini">
-            <option value="1" selected>Enero</option>
+            <option value="1" selected="">Enero</option>
             <option value="2">Febrero</option><option value="3">Marzo</option>
           </select>
         </div>
@@ -223,7 +221,7 @@ select:disabled{background-color:var(--gris);color:#94a3b8;cursor:not-allowed}
           <select id="mes-fin">
             <option value="1">Enero</option><option value="2">Febrero</option>
             <option value="3">Marzo</option><option value="4">Abril</option>
-            <option value="5">Mayo</option><option value="6" selected>Junio</option>
+            <option value="5">Mayo</option><option value="6" selected="">Junio</option>
           </select>
         </div>
       </div>
@@ -934,18 +932,23 @@ async function generarPPT(nombre_u, periodoLabel, analisis, datos_u, datos_pais,
     return `<a:r><a:rPr lang="es-419" ${sz} dirty="0"><a:solidFill><a:srgbClr val="${color}"/></a:solidFill><a:latin typeface="Calibri"/>${b}</a:rPr><a:t>${esc(text)}</a:t></a:r>`;
   }
 
+  let _spId = 2;
+
   function txBox(content, x, y, w, h) {
-    return `<p:sp><p:nvSpPr><p:cNvPr id="1" name="tb"/><p:cNvSpPr txBox="1"><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr/></p:nvSpPr>
+    const id = _spId++;
+    return `<p:sp><p:nvSpPr><p:cNvPr id="${id}" name="tb${id}"/><p:cNvSpPr txBox="1"><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr/></p:nvSpPr>
     <p:spPr><a:xfrm><a:off x="${emuX(x)}" y="${emuX(y)}"/><a:ext cx="${emuX(w)}" cy="${emuX(h)}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:noFill/></p:spPr>
     ${txBody(content)}</p:sp>`;
   }
 
   function rect(x,y,w,h,fill) {
-    return `<p:sp><p:nvSpPr><p:cNvPr id="2" name="r"/><p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr/></p:nvSpPr>
+    const id = _spId++;
+    return `<p:sp><p:nvSpPr><p:cNvPr id="${id}" name="r${id}"/><p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr/></p:nvSpPr>
     <p:spPr><a:xfrm><a:off x="${emuX(x)}" y="${emuX(y)}"/><a:ext cx="${emuX(w)}" cy="${emuX(h)}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="${fill}"/></a:solidFill></p:spPr><p:txBody><a:bodyPr/><a:lstStyle/><a:p/></p:txBody></p:sp>`;
   }
 
   function slide(shapes) {
+    _spId = 2;
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
   xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -1184,5 +1187,6 @@ async function generarArchivos(nombre_u, periodoLabel, analisis, datos_u, datos_
   }
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>
